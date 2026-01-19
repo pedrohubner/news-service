@@ -21,8 +21,7 @@ public class NewsController {
 
     @GetMapping
     public NewsResponse getNewsFrom(@RequestParam("section") String section) {
-        final var uri = "https://api.nytimes.com/svc/topstories/v2/%s.json?api-key=%s";
-        final var formattedUri = String.format(uri, section, properties.getApiKey());
+        final var formattedUri = String.format(properties.getNytimesApiUrl(), section, properties.getApiKey());
         return doRequest(formattedUri, HttpMethod.GET, null, NewsResponse.class);
     }
 

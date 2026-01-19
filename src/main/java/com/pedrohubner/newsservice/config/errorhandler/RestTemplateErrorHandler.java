@@ -1,6 +1,6 @@
 package com.pedrohubner.newsservice.config.errorhandler;
 
-import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.ResponseErrorHandler;
@@ -12,8 +12,7 @@ public class RestTemplateErrorHandler implements ResponseErrorHandler {
 
     @Override
     public boolean hasError(ClientHttpResponse response) throws IOException {
-        return response.getStatusCode().series().equals(HttpStatus.Series.CLIENT_ERROR)
-                || response.getStatusCode().series().equals(HttpStatus.Series.SERVER_ERROR);
+        return response.getStatusCode().isError();
     }
 
     @Override

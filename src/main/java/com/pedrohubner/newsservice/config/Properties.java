@@ -9,4 +9,7 @@ import org.springframework.stereotype.Component;
 public class Properties {
     @Value("${api-key}")
     private String apiKey;
+
+    @Value("${nytimes.api.url}")
+    private String nytimesApiUrl;
 }
