@@ -3,8 +3,13 @@ spring:
     name: news-service
 
 server:
-  port: 9000
+  port: 9001
   servlet:
     context-path: /news
 
-api-key: p9lyOMZ6az91ixDuOFOzldT0LBN3L2Ro
+news:
+  ny:
+    url: "https://api.nytimes.com/svc/topstories/v2"
+    #api-key: JurA3K3RomkShXeWbZZvbkarJ0CaakyKRD2EEp2X9PwjHkay
+    #secret: mPUyOOSaiY6e9O9s2FVLlVmHhrU35twliAucZw7ZMCTHxNEc3JKCKnYmottOAsj2
+    api-key: "JurA3K3RomkShXeWbZZvbkarJ0CaakyKRD2EEp2X9PwjHkay"

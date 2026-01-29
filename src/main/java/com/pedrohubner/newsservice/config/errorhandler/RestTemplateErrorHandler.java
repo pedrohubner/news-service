@@ -12,12 +12,19 @@ public class RestTemplateErrorHandler implements ResponseErrorHandler {
 
     @Override
     public boolean hasError(ClientHttpResponse response) throws IOException {
-        return response.getStatusCode().series().equals(HttpStatus.Series.CLIENT_ERROR)
-                || response.getStatusCode().series().equals(HttpStatus.Series.SERVER_ERROR);
+        final var statusCode = response.getStatusCode();
+        return statusCode.is4xxClientError() || statusCode.is5xxServerError();
     }
 
     @Override
     public void handleError(ClientHttpResponse response) throws IOException {
-        throw ExceptionUtils.buildException(response.getStatusCode(), response.getStatusText());
+        final var statusCode = response.getStatusCode();
+        final var statusText = response.getStatusText();
+
+        if (statusCode.value() == HttpStatus.UNAUTHORIZED.value()) {
+            throw new GenericException(401, "Unauthorized: Please check your API key.");
+        }
+
+        throw ExceptionUtils.buildException(statusCode.value(), statusText);
     }
 }
