@@ -1,0 +1,76 @@
+openapi: 3.0.3
+info:
+  title: News Service API
+  version: '1.1.0'
+  description: API para consulta de notícias por seção, com configuração multi-portal.
+servers:
+  - url: http://localhost:9000/news
+paths:
+  /v1:
+    get:
+      summary: Consulta notícias por seção
+      parameters:
+        - in: query
+          name: section
+          schema:
+            type: string
+          required: true
+          description: Nome da seção do portal de notícias
+        - in: query
+          name: portal
+          schema:
+            type: string
+          required: false
+          description: Identificador do portal (ex: nytimes, g1)
+      responses:
+        '200':
+          description: Lista de notícias
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NewsResponse'
+        '400':
+          description: Parâmetro inválido
+        '401':
+          description: API key inválida ou ausente
+        '404':
+          description: Seção ou portal não encontrado
+        '500':
+          description: Erro interno
+components:
+  schemas:
+    NewsResponse:
+      type: object
+      properties:
+        section:
+          type: string
+        lastUpdated:
+          type: string
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/NewsArticle'
+    NewsArticle:
+      type: object
+      properties:
+        title:
+          type: string
+        url:
+          type: string
+        byline:
+          type: string
+        publishedDate:
+          type: string
+        multimedia:
+          type: array
+          items:
+            $ref: '#/components/schemas/NewsMedia'
+    NewsMedia:
+      type: object
+      properties:
+        url:
+          type: string
+        caption:
+          type: string
+        type:
+          type: string

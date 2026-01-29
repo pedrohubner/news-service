@@ -13,3 +13,15 @@ news:
     #api-key: JurA3K3RomkShXeWbZZvbkarJ0CaakyKRD2EEp2X9PwjHkay
     #secret: mPUyOOSaiY6e9O9s2FVLlVmHhrU35twliAucZw7ZMCTHxNEc3JKCKnYmottOAsj2
     api-key: "JurA3K3RomkShXeWbZZvbkarJ0CaakyKRD2EEp2X9PwjHkay"
+
+springdoc:
+  swagger-ui:
+    enabled: true
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+    groups:
+      enabled: true
+  default-yaml:
+    enabled: true
+    path: classpath:/specs/001-tech-update-model-refactor/contracts/openapi.yaml
