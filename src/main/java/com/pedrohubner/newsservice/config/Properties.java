@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 @Getter
 @Component
 public class Properties {
-    @Value("${api-key}")
-    private String apiKey;
+    @Value("${news.ny.url}")
+    private String nyUrl;
+    @Value("${news.ny.api-key}")
+    private String nyApiKey;
 }
