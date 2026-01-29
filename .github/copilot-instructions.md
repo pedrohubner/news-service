@@ -333,5 +333,39 @@ When you first start working on this project:
 - **Help keep docs and code in sync**
 
 ---
+## Spec Kit Integration
+
+### When Working with Specs
+
+Before implementing any feature or significant change:
+
+1. **Check if a spec exists** in `.github/specs/`
+2. **If no spec exists**:
+   - Create one from the issue
+   - Reference TRD and FRD in the spec
+   - Define clear acceptance criteria
+   - Get spec approved before coding
+
+3. **When implementing from a spec**:
+   - Follow the proposed solution
+   - Reference the spec in commit messages and PRs
+   - Update the spec if implementation differs significantly
+
+### Spec Review Process
+
+- Use **code-review-specialist** to review implementation against spec
+- Use **unit-testing-specialist** to ensure testing strategy from spec is followed
+- Keep spec updated as source of truth for the feature
+
+### Spec Template Usage
+
+All specs must include:
+- [ ] Context from FRD (business requirements)
+- [ ] Technical approach aligned with TRD
+- [ ] Clear acceptance criteria
+- [ ] Testing strategy
+- [ ] Dependencies and references
+
+---
 
 **Remember**: Documentation is the source of truth. When in doubt, read the docs first, then ask questions.
