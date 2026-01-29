@@ -1,11 +1,13 @@
 HELP.md
 .gradle
-.specify
-.github
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+
+### GitHub ###
+.github
+.specify
 
 ### STS ###
 .apt_generated
