@@ -1,0 +1,128 @@
+openapi: 3.0.3
+info:
+  title: News Hub API
+  version: 1.0.0
+  description: API unificada para consulta de notícias do NY Times e The Guardian
+servers:
+  - url: /v1
+paths:
+  /news:
+    get:
+      summary: Consulta notícias de múltiplos portais
+      parameters:
+        - in: query
+          name: section
+          schema:
+            type: string
+          required: true
+          description: Seção/categoria da notícia
+        - in: query
+          name: source
+          schema:
+            type: string
+            enum: [nytimes, guardian]
+          required: false
+          description: Fonte de notícias (nytimes ou guardian, padrão: nytimes)
+        - in: query
+          name: page
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+          required: false
+          description: Página (inicia em 1)
+        - in: query
+          name: pageSize
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 50
+            default: 20
+          required: false
+          description: Tamanho da página (máx 50)
+      responses:
+        '200':
+          description: Lista de notícias padronizadas
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  articles:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/NewsArticle'
+                  page:
+                    type: integer
+                  pageSize:
+                    type: integer
+                  total:
+                    type: integer
+        '400':
+          description: Parâmetros inválidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Seção não encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          description: Serviço externo indisponível
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    NewsArticle:
+      type: object
+      required:
+        - id
+        - title
+        - summary
+        - url
+        - publishedAt
+        - source
+        - section
+        - type
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        summary:
+          type: string
+        url:
+          type: string
+        publishedAt:
+          type: string
+          format: date-time
+        source:
+          type: string
+          enum: [NYTIMES, GUARDIAN]
+        section:
+          type: string
+        type:
+          type: string
+        author:
+          type: string
+        imageUrl:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+    ErrorResponse:
+      type: object
+      required:
+        - error
+        - message
+      properties:
+        error:
+          type: string
+        message:
+          type: string
